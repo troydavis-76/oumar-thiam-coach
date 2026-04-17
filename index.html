@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Coach à la Hauteur — Oumar Thiam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1025;
+    --surface: #221535;
+    --card: #2a1d40;
+    --border: rgba(255,165,0,0.12);
+    --red: #ff4500;
+    --orange: #ff8c00;
+    --yellow: #ffd700;
+    --blue: #00bfff;
+    --electric: #7b2fff;
+    --text: #fff8f0;
+    --muted: #a090b8;
+    --grad-fire: linear-gradient(135deg, #ff4500, #ff8c00, #ffd700);
+    --grad-electric: linear-gradient(135deg, #7b2fff, #00bfff);
+    --grad-manga: linear-gradient(135deg, #ff4500, #ffd700, #00bfff);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* SPEED LINES BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      repeating-linear-gradient(
+        105deg,
+        transparent,
+        transparent 60px,
+        rgba(255,69,0,0.015) 60px,
+        rgba(255,69,0,0.015) 61px
+      ),
+      repeating-linear-gradient(
+        75deg,
+        transparent,
+        transparent 80px,
+        rgba(123,47,255,0.01) 80px,
+        rgba(123,47,255,0.01) 81px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(26,16,37,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid rgba(255,140,0,0.4);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    background: var(--grad-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--red); }
+
+  .nav-cta {
+    background: var(--grad-fire);
+    color: white !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-shape {
+    position: absolute;
+    right: -100px;
+    top: 0;
+    bottom: 0;
+    width: 55%;
+    background: linear-gradient(135deg, rgba(255,69,0,0.08), rgba(123,47,255,0.05));
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 0;
+  }
+
+  .hero-bg-shape::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255,69,0,0.03) 10px,
+      rgba(255,69,0,0.03) 11px
+    );
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.12;
+    top: 10%;
+    right: 10%;
+    background: var(--red);
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.08;
+    bottom: 20%;
+    right: 30%;
+    background: var(--electric);
+    animation: pulse-glow 4s ease-in-out infinite 2s;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { transform: scale(1); opacity: 0.12; }
+    50% { transform: scale(1.1); opacity: 0.18; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 650px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 30px; height: 2px;
+    background: var(--grad-fire);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  .hero h1 .fire {
+    background: var(--grad-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+  }
+
+  .hero h1 .electric {
+    background: var(--grad-electric);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  .btn-fire {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--grad-fire);
+    color: white;
+    padding: 1rem 2rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 30px rgba(255,69,0,0.3);
+  }
+
+  .btn-fire:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(255,69,0,0.5);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--text);
+    padding: 1rem 2rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--red);
+    background: rgba(255,69,0,0.05);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s ease 0.4s both;
+    flex-wrap: wrap;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    background: var(--grad-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 2px;
+    background: var(--grad-fire);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 500px;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* QUI SUIS JE */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-img {
+    position: relative;
+  }
+
+  .about-img-box {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-img-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,69,0,0.1), transparent 60%);
+  }
+
+  .about-img-box::after {
+    content: 'OUMAR THIAM';
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    color: white;
+  }
+
+  .about-badge {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 80px; height: 80px;
+    background: var(--grad-fire);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    color: white;
+  }
+
+  .about-text h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .skill-tag {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(255,69,0,0.3);
+    color: var(--red);
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    background: rgba(255,69,0,0.05);
+  }
+
+  /* FORMULES */
+  .formules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .formule-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    transition: transform 0.3s, border-color 0.3s;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+  }
+
+  .formule-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .formule-card.popular {
+    border-color: rgba(255,69,0,0.4);
+    background: linear-gradient(135deg, rgba(255,69,0,0.08), rgba(255,106,0,0.05));
+  }
+
+  .formule-card.popular:hover {
+    border-color: var(--red);
+    box-shadow: 0 20px 60px rgba(255,69,0,0.2);
+  }
+
+  .formule-badge {
+    position: absolute;
+    top: -1px; right: 2rem;
+    background: var(--grad-fire);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    color: white;
+  }
+
+  .formule-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .formule-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .formule-tagline {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .formule-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 2rem;
+  }
+
+  .formule-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .formule-features li::before {
+    content: '▸';
+    color: var(--red);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .formule-cta {
+    display: block;
+    text-align: center;
+    background: var(--grad-fire);
+    color: white;
+    padding: 0.8rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: opacity 0.2s;
+  }
+
+  .formule-cta:hover { opacity: 0.85; }
+
+  .formule-card:not(.popular) .formule-cta {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text);
+  }
+
+  /* CALCULATEUR */
+  .calc-wrapper {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    padding: 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .calc-group label {
+    display: block;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .calc-group input,
+  .calc-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.8rem 1rem;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .calc-group input:focus,
+  .calc-group select:focus {
+    border-color: rgba(255,69,0,0.5);
+  }
+
+  .calc-group select option {
+    background: var(--card);
+  }
+
+  .calc-btn {
+    width: 100%;
+    background: var(--grad-fire);
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 4px 20px rgba(255,69,0,0.3);
+  }
+
+  .calc-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .calc-result {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255,69,0,0.08), rgba(123,47,255,0.05));
+    border: 1px solid rgba(255,69,0,0.2);
+    display: none;
+  }
+
+  .calc-result.visible { display: block; }
+
+  .calc-result-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    background: var(--grad-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .calc-result-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .calc-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .breakdown-item {
+    text-align: center;
+  }
+
+  .breakdown-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--blue);
+  }
+
+  .breakdown-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* TÉMOIGNAGES */
+  .temoignages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .temoignage-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+  }
+
+  .temoignage-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: rgba(255,69,0,0.1);
+    line-height: 1;
+  }
+
+  .temoignage-stars {
+    color: var(--orange);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .temoignage-text {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .temoignage-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .author-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--grad-fire);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+  }
+
+  .author-result {
+    font-size: 0.8rem;
+    color: var(--red);
+    font-weight: 500;
+  }
+
+  /* RDV SECTION */
+  .rdv-section {
+    background: var(--surface);
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .rdv-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(255,69,0,0.02) 20px,
+      rgba(255,69,0,0.02) 21px
+    );
+  }
+
+  .rdv-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .rdv-inner h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .rdv-inner p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* QUESTIONNAIRE */
+  .questionnaire-section {
+    background: var(--bg);
+    padding: 6rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .questionnaire-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .googleform-placeholder {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--electric);
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .googleform-placeholder p {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer span {
+    background: var(--grad-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .formules-grid { grid-template-columns: 1fr; }
+    .temoignages-grid { grid-template-columns: 1fr; }
+    .calc-grid { grid-template-columns: 1fr; }
+    .calc-breakdown { grid-template-columns: repeat(3, 1fr); }
+    .nav-links { display: none; }
+    .hero h1 { font-size: clamp(3.5rem, 12vw, 6rem); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Oumar Thiam</div>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#formules">Formules</a></li>
+    <li><a href="#calculateur">Calculateur</a></li>
+    <li><a href="#temoignages">Résultats</a></li>
+    <li><a href="#rdv" class="nav-cta">Prendre RDV</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Coach Sportif Certifié · Évreux</div>
+    <h1>
+      <span>OUMAR THIAM</span>
+      <span class="fire">LE COACH</span>
+      <span class="electric">À LA HAUTEUR.</span>
+    </h1>
+    <p class="hero-desc">
+      Programmes personnalisés, suivi individualisé et méthodes éprouvées pour atteindre tes objectifs — prise de masse, perte de poids ou remise en forme.
+    </p>
+    <div class="hero-ctas">
+      <a href="#rdv" class="btn-fire">
+        Prendre RDV gratuit
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#formules" class="btn-outline">Voir les formules</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Clients transformés</div>
+      </div>
+      <div>
+        <div class="stat-num">5 ANS</div>
+        <div class="stat-label">D'expérience</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Suivi personnalisé</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="section" id="about">
+  <div class="about-grid reveal">
+    <div class="about-img">
+      <div class="about-img-box">💪</div>
+      <div class="about-badge">COACH<br>CERTIFIÉ</div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Qui suis-je</div>
+      <h2 class="section-title">OUMAR THIAM</h2>
+      <p>Coach sportif certifié basé à Évreux, je me spécialise dans la transformation physique et mentale. Ma méthode combine entraînement intensif, nutrition adaptée et suivi psychologique pour des résultats durables.</p>
+      <p>Passionné par le sport depuis mon plus jeune âge, j'ai aidé plus de 50 personnes à transformer leur corps et leur confiance en eux. Chaque programme est conçu sur mesure selon tes objectifs, ton niveau et ton mode de vie.</p>
+      <div class="about-skills">
+        <span class="skill-tag">Musculation</span>
+        <span class="skill-tag">Perte de poids</span>
+        <span class="skill-tag">Nutrition</span>
+        <span class="skill-tag">Cardio</span>
+        <span class="skill-tag">Remise en forme</span>
+        <span class="skill-tag">Prise de masse</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULES -->
+<section class="section" id="formules">
+  <div class="reveal">
+    <div class="section-label">Programmes</div>
+    <h2 class="section-title">CHOISIS TA FORMULE</h2>
+    <p class="section-sub">Des programmes adaptés à chaque objectif et chaque niveau.</p>
+  </div>
+  <div class="formules-grid reveal">
+
+    <div class="formule-card">
+      <div class="formule-icon">🔥</div>
+      <div class="formule-name">STARTER</div>
+      <div class="formule-tagline">Pour débuter sur de bonnes bases et comprendre ton corps.</div>
+      <ul class="formule-features">
+        <li>Programme d'entraînement personnalisé</li>
+        <li>Plan nutritionnel de base</li>
+        <li>2 séances/semaine</li>
+        <li>Suivi mensuel</li>
+        <li>Accès au groupe privé</li>
+      </ul>
+      <a href="#rdv" class="formule-cta">Commencer →</a>
+    </div>
+
+    <div class="formule-card popular">
+      <div class="formule-badge">⚡ Populaire</div>
+      <div class="formule-icon">💥</div>
+      <div class="formule-name">WARRIOR</div>
+      <div class="formule-tagline">Le programme complet pour une transformation visible en 90 jours.</div>
+      <ul class="formule-features">
+        <li>Programme avancé sur mesure</li>
+        <li>Plan nutritionnel détaillé</li>
+        <li>4 séances/semaine</li>
+        <li>Suivi hebdomadaire</li>
+        <li>Accès direct WhatsApp</li>
+        <li>Bilan mensuel vidéo</li>
+      </ul>
+      <a href="#rdv" class="formule-cta">Je veux ça →</a>
+    </div>
+
+    <div class="formule-card">
+      <div class="formule-icon">👑</div>
+      <div class="formule-name">ÉLITE</div>
+      <div class="formule-tagline">L'accompagnement VIP pour ceux qui veulent le maximum.</div>
+      <ul class="formule-features">
+        <li>Programme 100% personnalisé</li>
+        <li>Nutrition + compléments</li>
+        <li>Séances illimitées</li>
+        <li>Disponible 7j/7</li>
+        <li>Coaching mental inclus</li>
+        <li>Analyse corporelle mensuelle</li>
+      </ul>
+      <a href="#rdv" class="formule-cta">Devenir Élite →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CALCULATEUR -->
+<section class="section" id="calculateur">
+  <div class="reveal">
+    <div class="section-label">Outil gratuit</div>
+    <h2 class="section-title">CALCULATEUR DE CALORIES</h2>
+    <p class="section-sub">Découvre ton besoin calorique journalier pour atteindre ton objectif.</p>
+  </div>
+  <div class="calc-wrapper reveal">
+    <div class="calc-grid">
+      <div class="calc-group">
+        <label>Âge (ans)</label>
+        <input type="number" id="age" placeholder="25" min="10" max="100">
+      </div>
+      <div class="calc-group">
+        <label>Sexe</label>
+        <select id="sexe">
+          <option value="homme">Homme</option>
+          <option value="femme">Femme</option>
+        </select>
+      </div>
+      <div class="calc-group">
+        <label>Poids (kg)</label>
+        <input type="number" id="poids" placeholder="75" min="30" max="250">
+      </div>
+      <div class="calc-group">
+        <label>Taille (cm)</label>
+        <input type="number" id="taille" placeholder="175" min="100" max="250">
+      </div>
+      <div class="calc-group" style="grid-column: span 2">
+        <label>Niveau d'activité</label>
+        <select id="activite">
+          <option value="1.2">Sédentaire (peu ou pas de sport)</option>
+          <option value="1.375">Légèrement actif (1-3 fois/semaine)</option>
+          <option value="1.55" selected>Modérément actif (3-5 fois/semaine)</option>
+          <option value="1.725">Très actif (6-7 fois/semaine)</option>
+          <option value="1.9">Extrêmement actif (sport intensif quotidien)</option>
+        </select>
+      </div>
+      <div class="calc-group" style="grid-column: span 2">
+        <label>Objectif</label>
+        <select id="objectif">
+          <option value="perte">Perte de poids (-500 kcal)</option>
+          <option value="maintien" selected>Maintien du poids</option>
+          <option value="masse">Prise de masse (+300 kcal)</option>
+        </select>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calculer()">CALCULER MES BESOINS →</button>
+
+    <div class="calc-result" id="calcResult">
+      <div class="calc-result-label">Ton besoin journalier</div>
+      <div class="calc-result-num" id="resultNum">0</div>
+      <div style="color: var(--muted); font-size: 0.9rem;">calories / jour</div>
+      <div class="calc-breakdown">
+        <div class="breakdown-item">
+          <div class="breakdown-num" id="protNum">0g</div>
+          <div class="breakdown-label">Protéines</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-num" id="glucNum">0g</div>
+          <div class="breakdown-label">Glucides</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-num" id="lipNum">0g</div>
+          <div class="breakdown-label">Lipides</div>
+        </div>
+      </div>
+      <p style="color: var(--muted); font-size: 0.85rem; margin-top: 1.5rem; line-height: 1.6;">
+        💡 Ces chiffres sont une estimation. Pour un plan nutrition précis adapté à tes objectifs, prends RDV avec Oumar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="section" id="temoignages">
+  <div class="reveal">
+    <div class="section-label">Résultats réels</div>
+    <h2 class="section-title">ILS ONT TRANSFORMÉ LEUR CORPS</h2>
+    <p class="section-sub">Des vraies personnes, de vrais résultats.</p>
+  </div>
+  <div class="temoignages-grid reveal">
+
+    <div class="temoignage-card">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">En 3 mois avec Oumar j'ai perdu 12kg sans me priver. Il m'a appris à manger correctement et à m'entraîner efficacement. Je recommande à 100%.</p>
+      <div class="temoignage-author">
+        <div class="author-avatar">K</div>
+        <div>
+          <div class="author-name">Karim B.</div>
+          <div class="author-result">-12kg en 3 mois</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="temoignage-card">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">J'avais essayé plusieurs coachs avant Oumar. Sa méthode est différente — il comprend vraiment ton corps et adapte tout. Résultats visibles dès le premier mois.</p>
+      <div class="temoignage-author">
+        <div class="author-avatar">S</div>
+        <div>
+          <div class="author-name">Sarah M.</div>
+          <div class="author-result">+8kg de muscle en 4 mois</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="temoignage-card">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">Le programme Warrior a changé ma vie. Non seulement physiquement mais aussi mentalement. Oumar est disponible, motivant et professionnel. Merci !</p>
+      <div class="temoignage-author">
+        <div class="author-avatar">T</div>
+        <div>
+          <div class="author-name">Thomas L.</div>
+          <div class="author-result">Transformation complète en 90 jours</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RDV -->
+<div class="rdv-section" id="rdv">
+  <div class="rdv-inner reveal">
+    <div class="section-label" style="justify-content: center;">Consultation gratuite</div>
+    <h2>PRÊT À<br><span style="background: var(--grad-fire); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">CHANGER ?</span></h2>
+    <p>Réserve ta consultation gratuite de 30 minutes. On analyse ensemble tes objectifs et je te propose le programme adapté.</p>
+    <a href="LIEN_CALENDLY_ICI" class="btn-fire" style="display: inline-flex; font-size: 1.1rem; padding: 1.2rem 3rem;">
+      📅 Réserver mon RDV gratuit
+    </a>
+  </div>
+</div>
+
+<!-- QUESTIONNAIRE -->
+<div class="questionnaire-section" id="questionnaire">
+  <div class="questionnaire-inner reveal">
+    <div class="section-label">Questionnaire</div>
+    <h2 class="section-title">AVANT TON RDV</h2>
+    <p class="section-sub">Remplis ce questionnaire pour que je prépare au mieux notre consultation.</p>
+    <div class="googleform-placeholder">
+      <p>Le formulaire Google Forms sera intégré ici</p>
+      <a href="LIEN_GOOGLEFORM_ICI" class="btn-fire" style="display: inline-flex;">Remplir le questionnaire →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Oumar Thiam</span> — Coach Sportif Certifié · Évreux</p>
+</footer>
+
+<script>
+  function calculer() {
+    const age = parseFloat(document.getElementById('age').value);
+    const poids = parseFloat(document.getElementById('poids').value);
+    const taille = parseFloat(document.getElementById('taille').value);
+    const sexe = document.getElementById('sexe').value;
+    const activite = parseFloat(document.getElementById('activite').value);
+    const objectif = document.getElementById('objectif').value;
+
+    if (!age || !poids || !taille) {
+      alert('Remplis tous les champs !');
+      return;
+    }
+
+    // Mifflin-St Jeor
+    let bmr;
+    if (sexe === 'homme') {
+      bmr = 10 * poids + 6.25 * taille - 5 * age + 5;
+    } else {
+      bmr = 10 * poids + 6.25 * taille - 5 * age - 161;
+    }
+
+    let tdee = bmr * activite;
+
+    if (objectif === 'perte') tdee -= 500;
+    else if (objectif === 'masse') tdee += 300;
+
+    tdee = Math.round(tdee);
+
+    // Macros
+    const prot = Math.round((tdee * 0.30) / 4);
+    const gluc = Math.round((tdee * 0.45) / 4);
+    const lip = Math.round((tdee * 0.25) / 9);
+
+    document.getElementById('resultNum').textContent = tdee.toLocaleString();
+    document.getElementById('protNum').textContent = prot + 'g';
+    document.getElementById('glucNum').textContent = gluc + 'g';
+    document.getElementById('lipNum').textContent = lip + 'g';
+
+    const result = document.getElementById('calcResult');
+    result.classList.add('visible');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+</body>
+</html>
